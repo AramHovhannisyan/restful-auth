@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { config } from "./config/config";
 import { userRouter } from './routes/userRouter';
+import AppError from './utils/AppError';
+import globalErrorHandler from "./controllers/errorController";
 
 const app = express();
 
@@ -16,6 +18,10 @@ app.use(express.json());
  */
 app.get('/health', (req, res) => res.sendStatus(200));
 app.use('/user', userRouter);
+
+app.all('*', (req, res, next) => next(new AppError(`Cant find ${req.originalUrl} on this server`, 404)));
+
+app.use(globalErrorHandler);
 
 const port = config.server.port;
 
