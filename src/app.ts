@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
+import cookieParser from "cookie-parser";
 import { config } from "./config/config";
 import userRouter from './routes/userRouter';
 import AppError from './utils/AppError';
@@ -12,6 +13,7 @@ const app = express();
  */
 
 app.use(express.json());
+app.use(cookieParser());
 
 /**
  * Routes
