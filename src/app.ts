@@ -1,4 +1,15 @@
+import express, { Request, Response, NextFunction } from 'express';
 import { config } from "./config/config.js";
 
-const str = "App.ts Works";
-console.info(str);
+const app = express();
+
+/**
+ * Routes
+ */
+app.get('/health', (req, res) => res.sendStatus(200));
+
+const port = config.server.port || 3000;
+
+app.listen(port, () => {
+  console.info(`listening on port ${port}`);
+});
