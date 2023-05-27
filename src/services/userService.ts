@@ -1,3 +1,4 @@
+import UserDto from '../dtos/UserDto';
 import { User } from '../models/UserModel';
 import AppError from '../utils/AppError';
 
@@ -10,8 +11,8 @@ const createOne = async (username: string, email: string, password: string) => {
     });
   
     const user = await newUser.save();
-  
-    return user;
+    
+    return new UserDto(user);
   } catch (error: any) {
     if (error.code === 11000) {
       const errorField = Object.keys(error.keyValue)[0];
