@@ -1,0 +1,36 @@
+{
+  "name": "setup-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "scripts": {
+    "start": "npx nodemon",
+    "build": "rimraf ./dist && npx tsc",
+    "prod": "npm run build && node dist/app",
+    "lint": "npx eslint ./src",
+    "format": "npx eslint ./src --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.14.4",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "husky": "^8.0.3",
+    "nodemon": "^2.0.20",
+    "rimraf": "^4.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
