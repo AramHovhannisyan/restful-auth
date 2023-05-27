@@ -1,15 +1,25 @@
 import { User } from '../models/UserModel';
+import AppError from '../utils/AppError';
 
 const createOne = async (username: string, email: string, password: string) => {
-  const newUser = new User({
-    username,
-    email,
-    password
-  });
+  try {
+    const newUser = new User({
+      username,
+      email,
+      password
+    });
+  
+    const user = await newUser.save();
+  
+    return user;
+  } catch (error: any) {
+    if (error.code === 11000) {
+      const errorField = Object.keys(error.keyValue)[0];
+      throw new AppError(`User with this ${errorField} is already registered `, 409);
+    }
 
-  const user = await newUser.save();
-
-  return user;
+    throw error;
+  }
 };
 
 export { createOne };

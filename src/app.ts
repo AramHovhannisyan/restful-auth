@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { config } from "./config/config";
-import { userRouter } from './routes/userRouter';
+import userRouter from './routes/userRouter';
 import AppError from './utils/AppError';
 import globalErrorHandler from "./controllers/errorController";
 
