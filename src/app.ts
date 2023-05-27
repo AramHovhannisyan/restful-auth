@@ -8,7 +8,7 @@ const app = express();
  */
 app.get('/health', (req, res) => res.sendStatus(200));
 
-const port = config.server.port || 3000;
+const port = config.server.port;
 
 app.listen(port, () => {
   console.info(`listening on port ${port}`);
