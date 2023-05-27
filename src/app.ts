@@ -1,14 +1,21 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { config } from "./config/config.js";
-import { User } from "./models/UserModel.js";
+import { userRouter } from './routes/userRouter.js';
 
 const app = express();
+
+/**
+ * MiddleWares
+ */
+
+app.use(express.json());
 
 /**
  * Routes
  */
 app.get('/health', (req, res) => res.sendStatus(200));
+app.use('/user', userRouter);
 
 const port = config.server.port;
 
