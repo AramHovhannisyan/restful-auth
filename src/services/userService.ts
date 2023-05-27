@@ -1,4 +1,4 @@
-import { User } from '../models/UserModel.js';
+import { User } from '../models/UserModel';
 
 const createOne = async (username: string, email: string, password: string) => {
   const newUser = new User({

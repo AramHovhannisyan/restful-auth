@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
-import { config } from "./config/config.js";
-import { userRouter } from './routes/userRouter.js';
+import { config } from "./config/config";
+import { userRouter } from './routes/userRouter';
 
 const app = express();
 

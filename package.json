@@ -2,8 +2,7 @@
   "name": "setup-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/app.js",
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
