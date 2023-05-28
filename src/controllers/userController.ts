@@ -2,9 +2,23 @@ import { Request, Response, NextFunction } from 'express';
 import bcrypt from "bcrypt";
 import { createOne } from '../services/userService';
 import { generateTokens, saveToDb } from '../services/tokenService';
+import { validateGetRegistrationRequest } from '../validators/validateRegistrationEndpoint';
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
+    const { error } = validateGetRegistrationRequest(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'Invalid Request',
+        data: {
+          details: error.details,
+        },
+      });
+    }
+
     const { username, email, password } = req.body;
 
     const hassPass = await bcrypt.hash(password, 4);
