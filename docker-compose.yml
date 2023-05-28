@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - '7017:27017'
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: restful-auth
+  main:
+    build: 
+      context: .
+    ports:
+      - '3002:3002'
+    depends_on:
+      - mongo
+    restart: unless-stopped

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
 import { config } from "./config/config";
 import userRouter from './routes/userRouter';
+// import authRouter from './routes/authRouter';
 import AppError from './utils/AppError';
 import globalErrorHandler from "./controllers/errorController";
 import swaggerUi from "swagger-ui-express";
@@ -44,13 +45,16 @@ app.use(cookieParser());
  */
 app.get('/health', (req, res) => res.sendStatus(200));
 app.use('/api/v1/user', userRouter);
+// app.use('/api/v1/auth', authRouter);
 
 app.all('*', (req, res, next) => next(new AppError(`Cant find ${req.originalUrl} on this server`, 404)));
 
 app.use(globalErrorHandler);
 
 const port = config.server.port;
+const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
 
+// const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
 const uri = `mongodb://127.0.0.1:27017/digitec-task`;
 
 app.listen(port, () => {

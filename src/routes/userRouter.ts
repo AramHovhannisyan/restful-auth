@@ -80,6 +80,6 @@ const userRouter = express.Router();
 userRouter.route('/login').post(login);
 userRouter.route('/logout').post(logout);
 userRouter.route('/refresh').get(refreshToken);
-userRouter.route('/').get(authMiddleware, getAll).post(register);
+userRouter.route('/').post(register).get(authMiddleware, getAll);
 
 export default userRouter;
