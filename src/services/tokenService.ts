@@ -4,9 +4,11 @@ import { Token } from '../models/TokenModel';
 import UserDto from '../dtos/UserDto';
 
 const generateTokens = async (payload: UserDto) => {
-  const { username, email } = payload;
-  const accessToken = await jwt.sign({ username, email }, config.jwt.secretAccess, { expiresIn: '15m' });
-  const refreshToken = await jwt.sign({ username, email }, config.jwt.secretRefresh, { expiresIn: '15d' });
+  const { username, email, id: objectId } = payload;
+  const id = objectId.toString();
+  
+  const accessToken = await jwt.sign({ id, username, email }, config.jwt.secretAccess, { expiresIn: '1m' });
+  const refreshToken = await jwt.sign({ id, username, email }, config.jwt.secretRefresh, { expiresIn: '15d' });
 
   return { accessToken, refreshToken };
 };
@@ -22,4 +24,28 @@ const saveToDb = async (user: UserDto, refreshToken: string) => {
   return await Token.create({ user: user.id, refreshToken });
 };
 
-export { generateTokens, saveToDb };
+const removeToken = async (refreshToken: string) => {
+  return await Token.deleteOne({ refreshToken });
+};
+
+const validateRefreshToken = async (refreshToken: string) => {
+  try {
+    return await jwt.verify(refreshToken, config.jwt.secretRefresh);
+  } catch (error) {
+    return null;
+  }
+};
+
+const validateAccessToken = async (accessToken: string) => {
+  try {
+    return jwt.verify(accessToken, config.jwt.secretAccess);
+  } catch (error) {
+    return null;
+  }
+};
+
+const getToken = async (refreshToken: string) => {
+    return await Token.findOne({ refreshToken });
+};
+
+export { generateTokens, saveToDb, removeToken, validateAccessToken, validateRefreshToken, getToken };

@@ -4,7 +4,7 @@ import { RegisterUserRequestType } from '../types/RegistrationRequestTypes';
 const RegisterUserRequestSchema = Joi.object({
   username: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(4)
+  password: Joi.string().min(4).required(),
 });
 
 const registrationEndpointValidator = (schema: any) => (payload: RegisterUserRequestType) => schema.validate(payload, {
@@ -12,6 +12,6 @@ const registrationEndpointValidator = (schema: any) => (payload: RegisterUserReq
   allowUnknown: true,
 });
 
-const validateGetRegistrationRequest = registrationEndpointValidator(RegisterUserRequestSchema);
+const validateRegistrationRequest = registrationEndpointValidator(RegisterUserRequestSchema);
 
-export { validateGetRegistrationRequest };
+export { validateRegistrationRequest };

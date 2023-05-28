@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 interface UserModel {
-  _id?: mongoose.Types.ObjectId,
+  _id: mongoose.Types.ObjectId,
   username: string,
   email: string,
   password: string,
