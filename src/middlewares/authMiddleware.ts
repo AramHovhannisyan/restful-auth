@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import AppError from '../utils/AppError';
+import AppError from '../errorHandling/AppError';
 import { validateAccessToken } from '../services/tokenService';
 
 export default async function authMiddleware (req: Request, res: Response, next: NextFunction) {

@@ -3,12 +3,15 @@ import { config } from "../config/config";
 import { Token } from '../models/TokenModel';
 import UserDto from '../dtos/UserDto';
 
-const generateTokens = async (payload: UserDto) => {
+const generateAndSaveTokens = async (payload: UserDto) => {
   const { username, email, id: objectId } = payload;
   const id = objectId.toString();
   
   const accessToken = await jwt.sign({ id, username, email }, config.jwt.secretAccess, { expiresIn: '1m' });
   const refreshToken = await jwt.sign({ id, username, email }, config.jwt.secretRefresh, { expiresIn: '15d' });
+
+  // Save RefreshToken For User 
+  await saveToDb(payload, refreshToken);
 
   return { accessToken, refreshToken };
 };
@@ -48,4 +51,4 @@ const getToken = async (refreshToken: string) => {
     return await Token.findOne({ refreshToken });
 };
 
-export { generateTokens, saveToDb, removeToken, validateAccessToken, validateRefreshToken, getToken };
+export { generateAndSaveTokens, removeToken, validateAccessToken, validateRefreshToken, getToken };
