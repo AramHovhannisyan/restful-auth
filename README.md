@@ -1,7 +1,7 @@
 # restful-auth
 Authentication service with express and MongoDB on typescript
 
-Documentation:  http://localhost:3002/api-docs
+Swagger Documentation:  http://localhost:3002/api-docs
 
 # Instructions to set up and run the project
 run docker-compose up and project will be run on 3002 port
