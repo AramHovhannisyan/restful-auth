@@ -36,9 +36,6 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-console.log('${__dirname}:', __dirname);
-
-
 /**
  * MiddleWares
  */
@@ -59,8 +56,8 @@ app.all('*', (req, res, next) => next(new AppError(`Cant find ${req.originalUrl}
 
 app.use(globalErrorHandler);
 
-const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
-// const uri = `mongodb://127.0.0.1:27017/digitec-task`;
+// const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
+const uri = `mongodb://127.0.0.1:27017/digitec-task`;
 
 app.listen(port, () => {
   console.info(`listening on port ${port}`);

@@ -50,6 +50,16 @@ import authMiddleware from '../middlewares/authMiddleware';
  *                 $ref: '#/components/schemas/User'
  *       401:
  *         description: Unauthorized Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CustomError'
+ *       500:
+ *         description: Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CustomError'
  *   post:
  *     summary: Register new user
  *     tags: [Users]
@@ -68,10 +78,22 @@ import authMiddleware from '../middlewares/authMiddleware';
  *               $ref: '#/components/schemas/User'
  *       401:
  *         description: Unauthorized Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CustomError'
  *       409:
- *         description: Conflict. User with provided email username already exists.
+ *         description: Conflict. User with provided email username already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CustomError'
  *       500:
- *         description: Some server error
+ *         description: Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CustomError'
  *
  */
 
