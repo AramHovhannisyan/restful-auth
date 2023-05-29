@@ -16,6 +16,6 @@ Step 3. Save Access Token Value As Bearer Token
 
 Step 4. Open protected route http://localhost:3002/api/v1/user Bearer: token
 
-Step 5. Refresh tokens with refreshToken, when access token will expire: http://localhost:3002/api/v1/auth/login
+Step 5. Refresh tokens with refreshToken, when access token will expire: http://localhost:3002/api/v1/auth/refresh
 
 Step 6. Log out user http://localhost:3002/api/v1/auth/logout
