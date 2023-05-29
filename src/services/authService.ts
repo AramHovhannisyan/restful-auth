@@ -4,29 +4,31 @@ import { removeToken, validateRefreshToken, getToken } from "./tokenService";
 import UserDto from '../dtos/UserDto';
 import AppError from '../errorHandling/AppError';
 
+// Logging in user
 const loginUser = async (usernameOrEmail: string, password: string) => {
   try {
+    // Check if user exists email | username
     const user = await User.findOne({ $or:[ {'email': usernameOrEmail}, {'username': usernameOrEmail} ]});
     if (!user) {
       throw new AppError('User not found', 401);
     }
 
+    // Validate password
     const isPassCorrect = await bcrypt.compare(password, user.password);
     if (!isPassCorrect) {
       throw new AppError('Wrong Password', 401);
     }
     
+    // Create DTO
     return new UserDto(user);
   } catch (error: any) {
-    if (error.code === 11000) {
-      const errorField = Object.keys(error.keyValue)[0];
-      throw new AppError(`User with this ${errorField} is already registered `, 409);
-    }
-
     throw error;
   }
 };
 
+/**
+ * Logging out by Removing Refresh token from DB
+ */
 const logoutUser = async (refreshToken: string) => {
     if (!refreshToken) {
       throw new AppError(`You are not authorized`, 401);
@@ -37,6 +39,10 @@ const logoutUser = async (refreshToken: string) => {
     return tokenRemoved;
 };
 
+/**
+ * Generate new AccessToken and RefreshToken
+ * !(typeof userData === 'object') condition is added because ts says .verify may return string
+ */
 const refreshUserToken = async (refreshToken: string) => {
     if (!refreshToken) {      
       throw new AppError(`You are not authorized`, 401);
@@ -45,13 +51,9 @@ const refreshUserToken = async (refreshToken: string) => {
     const userData = await validateRefreshToken(refreshToken);
     const existingToken = await getToken(refreshToken);
 
-    // The last condition is added because ts says .verify may return string
+    // Validate refresh token, check for it's existence in DB
     if (!userData || !existingToken || !(typeof userData === 'object')) {
       throw new AppError(`You are not authorized`, 401);
-    }
-
-    if (!userData || !existingToken) {
-      throw new AppError('You are not authorized', 401);
     }
 
     // In case user data have bee changed

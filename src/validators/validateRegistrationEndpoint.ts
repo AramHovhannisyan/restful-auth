@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { RegisterUserRequestType } from '../types/RegistrationRequestTypes';
 
+// Registration endpoint schema
 const RegisterUserRequestSchema = Joi.object({
   username: Joi.string().required(),
   email: Joi.string().email().required(),

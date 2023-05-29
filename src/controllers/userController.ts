@@ -4,9 +4,10 @@ import { registerUser, getAllUsers } from '../services/userService';
 import { generateAndSaveTokens } from '../services/tokenService';
 import { validateRegistrationRequest } from '../validators/validateRegistrationEndpoint';
 
+// Sign Up User
 const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    // Validate Request Body
     const { error } = validateRegistrationRequest(req.body);
 
     if (error) {
@@ -21,10 +22,11 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
     const { username, email, password } = req.body;
 
+    // Register User
     const hassPass = await bcrypt.hash(password, 4);
     const user = await registerUser(username, email, hassPass);
 
-    // Generate 2 Tokens For Users
+    // Generate tokens and save to cookie
     const tokens = await generateAndSaveTokens(user);
     res.cookie('refreshToken', tokens.refreshToken, { maxAge: 15 * 24 * 60 * 60 * 1000, httpOnly: true });
 
@@ -40,6 +42,9 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+/**
+ * Get All Users PROTECTED Endpoint
+ */
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await getAllUsers();

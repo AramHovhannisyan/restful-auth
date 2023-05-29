@@ -7,6 +7,7 @@ interface UserModel {
   password: string,
 }
 
+// DTO for better response object
 export default class UserDto {
   id;
   username;

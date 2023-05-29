@@ -5,7 +5,7 @@ import { validateLoginRequest } from '../validators/validateLoginEndpoint';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    // Validate Request Body
     const { error } = validateLoginRequest(req.body);
 
     if (error) {
@@ -18,12 +18,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
+    // In case user provided only Email or Username with password
     const { username, email, password } = req.body;
     const usernameOrEmail = (username) ? username : email;
 
+    // Logging in
     const user = await loginUser(usernameOrEmail, password);
 
-    // Generate 2 Tokens For Users
+    // Generate tokens and save to cookie
     const tokens = await generateAndSaveTokens(user);
     res.cookie('refreshToken', tokens.refreshToken, { maxAge: 15 * 24 * 60 * 60 * 1000, httpOnly: true });
 
@@ -39,9 +41,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// Log out user if cookie: refreshToken exists
 const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refreshToken = req.cookies.refreshToken;
+
     await logoutUser(refreshToken);
     res.clearCookie('refreshToken');
 
@@ -51,12 +55,18 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+/**
+ * Generate new AccessToken and RefreshToken
+ * REQUIRED cookies: refreshToken
+ * REQUIRED refreshToken available in DB 
+ */
 const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Getting new tokens
     const refreshToken = req.cookies.refreshToken;
     const user = await refreshUserToken(refreshToken);
 
-    // Generate 2 Tokens For Users
+    // Generate tokens and save to cookie
     const tokens = await generateAndSaveTokens(user);
     res.cookie('refreshToken', tokens.refreshToken, { maxAge: 15 * 24 * 60 * 60 * 1000, httpOnly: true });
 

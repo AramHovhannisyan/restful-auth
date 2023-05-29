@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { LoginUserRequestType } from '../types/LoginRequestTypes';
 
+// Login endpoint schema requires email or username
 const LoginUserRequestSchema = Joi.alternatives().try(
   Joi.object().keys({
     username: Joi.string().allow(''),

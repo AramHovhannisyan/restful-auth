@@ -14,6 +14,7 @@ const registerUser = async (username: string, email: string, password: string) =
     
     return new UserDto(user);
   } catch (error: any) {
+    // Catching UNIQUE field error, to validate email and username are not used
     if (error.code === 11000) {
       const errorField = Object.keys(error.keyValue)[0];
       throw new AppError(`User with this ${errorField} is already registered `, 409);
@@ -23,6 +24,7 @@ const registerUser = async (username: string, email: string, password: string) =
   }
 };
 
+// Simple query and return
 const getAllUsers = async () => {
   const users = await User.find();
 
