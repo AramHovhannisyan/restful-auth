@@ -42,7 +42,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    const loggedOut = await logoutUser(refreshToken);
+    await logoutUser(refreshToken);
     res.clearCookie('refreshToken');
 
     return res.status(205).send();

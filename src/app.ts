@@ -11,6 +11,9 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 const app = express();
 
+const port = config.server.port;
+const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
+
 /**
  * Swagger Setup
  */
@@ -23,15 +26,18 @@ const options = {
       version: "1.0.0",
     },
     schemes: ["http", "https"],
-    servers: [{ url: "http://localhost:3004/" }],
+    servers: [{ url: `http://localhost:${port}/` }],
   },
   apis: [
     `${__dirname}/routes/*.ts`,
-    // "./dist/routes/*.js",
+    `${__dirname}/routes/*.js`,
   ],
 };
 const swaggerSpec = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+console.log('${__dirname}:', __dirname);
+
 
 /**
  * MiddleWares
@@ -47,15 +53,14 @@ app.get('/health', (req, res) => res.sendStatus(200));
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/auth', authRouter);
 
+app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+
 app.all('*', (req, res, next) => next(new AppError(`Cant find ${req.originalUrl} on this server`, 404)));
 
 app.use(globalErrorHandler);
 
-const port = config.server.port;
-const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
-
-// const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
-const uri = `mongodb://127.0.0.1:27017/digitec-task`;
+const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
+// const uri = `mongodb://127.0.0.1:27017/digitec-task`;
 
 app.listen(port, () => {
   console.info(`listening on port ${port}`);

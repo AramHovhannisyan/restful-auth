@@ -33,12 +33,11 @@ import authMiddleware from '../middlewares/authMiddleware';
 
 /**
  * @swagger
- * tags:
- *   name: User
- *   description: The users managing API
- * /:
+ * /api/v1/user/:
  *   get:
  *     summary: Lists all the Users
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Users]
  *     responses:
  *       200:
@@ -52,7 +51,7 @@ import authMiddleware from '../middlewares/authMiddleware';
  *       401:
  *         description: Unauthorized Error
  *   post:
- *     summary: Create a new user
+ *     summary: Register new user
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -70,7 +69,7 @@ import authMiddleware from '../middlewares/authMiddleware';
  *       401:
  *         description: Unauthorized Error
  *       409:
- *         description: Conflict. User with provided data already exists.
+ *         description: Conflict. User with provided email username already exists.
  *       500:
  *         description: Some server error
  *
