@@ -9,9 +9,9 @@
     }
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=dev npx nodemon",
-    "build": "rimraf ./dist && npx tsc",
-    "prod": "npm run build && node dist/app",
+    "start": "NODE_ENV=dev ts-node-dev --rs --exit-child src/app",
+    "build": "tsc",
+    "prod": "NODE_ENV=prod npm run build && node dist/app",
     "lint": "npx eslint ./src",
     "format": "npx eslint ./src --fix"
   },
@@ -31,7 +31,6 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.35.0",
     "husky": "^8.0.3",
-    "nodemon": "^2.0.20",
     "rimraf": "^4.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
@@ -45,6 +44,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.3"
+    "swagger-ui-express": "^4.6.3",
+    "ts-node-dev": "^2.0.0"
   }
 }

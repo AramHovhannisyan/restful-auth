@@ -46,8 +46,8 @@ app.use(globalErrorHandler);
  */
 const port = config.server.port;
 const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
-const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
-// const uri = `mongodb://127.0.0.1:27017/digitec-task`;
+// const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
+const uri = `mongodb+srv://8hovhannisyanaram:UN85JnwTqxxCLfjK@express-rest-auth-lambd.zx1qddz.mongodb.net/?retryWrites=true&w=majority&appName=EXPRESS-REST-AUTH-LAMBDA-CLUSTER`;
 
 mongoose
 .connect(uri,{ retryWrites: true })
