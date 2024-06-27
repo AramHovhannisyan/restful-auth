@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { User } from '../models/UserModel';
 import { removeToken, validateRefreshToken, getToken } from "./tokenService";
 import UserDto from '../dtos/UserDto';

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { registerUser, getAllUsers } from '../services/userService';
 import { generateAndSaveTokens } from '../services/tokenService';
 import { validateRegistrationRequest } from '../validators/validateRegistrationEndpoint';
@@ -23,8 +23,10 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const { username, email, password } = req.body;
 
     // Register User
-    const hassPass = await bcrypt.hash(password, 4);
-    const user = await registerUser(username, email, hassPass);
+    const passSalt = bcrypt.genSaltSync(10);
+    
+    const hashPass = await bcrypt.hash(password, passSalt);
+    const user = await registerUser(username, email, hashPass);
 
     // Generate tokens and save to cookie
     const tokens = await generateAndSaveTokens(user);
