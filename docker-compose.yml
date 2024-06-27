@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo
     ports:
-      - '7017:27017'
+      - '27017:27017'
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: root

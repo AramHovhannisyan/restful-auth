@@ -46,6 +46,7 @@ app.use(globalErrorHandler);
  */
 const port = config.server.port;
 const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
+
 const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
 
 mongoose
