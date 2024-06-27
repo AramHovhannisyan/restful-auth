@@ -3,17 +3,17 @@ services:
   mongo:
     image: mongo
     ports:
-      - '27017:27017'
+      - $MONGO_LOCAL_PORT:$MONGO_DOCKER_PORT
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_USERNAME
       MONGO_INITDB_DATABASE: restful-auth
   main:
-    build: 
+    build:
       context: .
     ports:
-      - '3001:3001'
+      - $SERVER_PORT:$SERVER_PORT
     depends_on:
       - mongo
     restart: unless-stopped
