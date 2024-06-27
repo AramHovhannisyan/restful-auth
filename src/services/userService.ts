@@ -1,6 +1,6 @@
-import UserDto from '../dtos/UserDto';
-import { User } from '../models/UserModel';
-import AppError from '../errorHandling/AppError';
+import UserDto from '../lib/dtos/UserDto';
+import { User } from '../lib/models/UserModel';
+import AppError from '../lib/errorHandling/AppError';
 
 const registerUser = async (username: string, email: string, password: string) => {
   try {

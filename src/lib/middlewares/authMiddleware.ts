@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import AppError from '../errorHandling/AppError';
-import { validateAccessToken } from '../services/tokenService';
+import { validateAccessToken } from '../../services/tokenService';
 
 /**
  * Custom middlewares to prevent access for not logged in users

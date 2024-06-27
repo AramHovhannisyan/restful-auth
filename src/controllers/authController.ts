@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { loginUser, logoutUser, refreshUserToken } from '../services/authService';
 import { generateAndSaveTokens } from '../services/tokenService';
-import { validateLoginRequest } from '../validators/validateLoginEndpoint';
+import { validateLoginRequest } from '../lib/validators/validateLoginEndpoint';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {

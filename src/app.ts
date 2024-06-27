@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
-import { config } from "./config/config";
-import swaggerOptions from "./config/swaggerOptions";
+import { config } from "./lib/config/config";
+import swaggerOptions from "./lib/config/swaggerOptions";
 import userRouter from './routes/userRouter';
 import authRouter from './routes/authRouter';
-import AppError from './errorHandling/AppError';
-import globalErrorHandler from "./errorHandling/globalErrorHandler";
+import AppError from './lib/errorHandling/AppError';
+import globalErrorHandler from "./lib/errorHandling/globalErrorHandler";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 

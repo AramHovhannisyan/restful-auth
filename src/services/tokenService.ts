@@ -1,7 +1,7 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { config } from "../config/config";
-import { Token } from '../models/TokenModel';
-import UserDto from '../dtos/UserDto';
+import { config } from "../lib/config/config";
+import { Token } from '../lib/models/TokenModel';
+import UserDto from '../lib/dtos/UserDto';
 
 const generateAndSaveTokens = async (payload: UserDto) => {
   const { username, email, id: objectId } = payload;

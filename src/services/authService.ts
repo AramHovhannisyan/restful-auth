@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import { User } from '../models/UserModel';
+import { User } from '../lib/models/UserModel';
 import { removeToken, validateRefreshToken, getToken } from "./tokenService";
-import UserDto from '../dtos/UserDto';
-import AppError from '../errorHandling/AppError';
+import UserDto from '../lib/dtos/UserDto';
+import AppError from '../lib/errorHandling/AppError';
 
 // Logging in user
 const loginUser = async (usernameOrEmail: string, password: string) => {

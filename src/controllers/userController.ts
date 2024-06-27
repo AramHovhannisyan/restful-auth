@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import bcrypt from "bcryptjs";
 import { registerUser, getAllUsers } from '../services/userService';
 import { generateAndSaveTokens } from '../services/tokenService';
-import { validateRegistrationRequest } from '../validators/validateRegistrationEndpoint';
+import { validateRegistrationRequest } from '../lib/validators/validateRegistrationEndpoint';
 
 // Sign Up User
 const register = async (req: Request, res: Response, next: NextFunction) => {
