@@ -47,7 +47,6 @@ app.use(globalErrorHandler);
 const port = config.server.port;
 const { mongoHost, mongoPort, mongoUsername, mongoPassword } = config.db;
 const uri = `mongodb://${mongoUsername}:${mongoPassword}@${mongoHost}:${mongoPort}`;
-// const uri = `mongodb://127.0.0.1:27017/digitec-task`;
 
 mongoose
 .connect(uri,{ retryWrites: true })
